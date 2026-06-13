@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "foundational-search-engine"
+version = "0.0.1"
+description = "A small search engine built from first principles."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+dependencies = []
+authors = [
+  { name = "Felix Chen" }
+]
+keywords = ["search-engine", "information-retrieval", "applied-math", "data-structures"]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Text Processing :: Indexing",
+]
+
+[project.urls]
+Repository = "https://github.com/felixchen816/foundational-search-engine"
+Issues = "https://github.com/felixchen816/foundational-search-engine/issues"
+Documentation = "https://github.com/felixchen816/foundational-search-engine/blob/main/README.md"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+foundational-load = "search_engine.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
