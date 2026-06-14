@@ -18,3 +18,9 @@ Load the sample documents:
 ```bash
 foundational-load --data data/sample_docs
 ```
+
+Search local documents:
+
+```bash
+foundational-search search --data data/sample_docs
+```

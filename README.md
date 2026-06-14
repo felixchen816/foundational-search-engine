@@ -1,8 +1,8 @@
 # Foundational Search Engine
 
-A small, learning-first search engine project. The current repository is reset to
-the first two milestones: a bare-bones Python package scaffold and a local text
-document loader.
+A small, learning-first search engine project. The current repository has a
+bare-bones Python package scaffold, a local text document loader, and a tiny
+keyword search prototype you can run from the command line.
 
 [![CI](https://github.com/felixchen816/foundational-search-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/felixchen816/foundational-search-engine/actions/workflows/ci.yml)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](pyproject.toml)
@@ -14,14 +14,13 @@ Implemented:
 
 - Bare-bones Python package scaffold
 - Local `.txt` document loader
-- Light tests for loader behavior and repository documentation
+- Minimal keyword search over loaded documents
+- Light tests for loader, search, CLI behavior, and repository documentation
 
 Planned:
 
-- Tokenization
 - Inverted index
-- Keyword search API
-- Command-line search
+- Richer command-line search
 - Ranking
 - Example corpora and evaluation
 - Web UI
@@ -42,14 +41,22 @@ Load local text files:
 foundational-load --data data/sample_docs
 ```
 
+Search local text files:
+
+```bash
+foundational-search search --data data/sample_docs
+```
+
 Use the loader from Python:
 
 ```python
 from search_engine.loader import load_documents
+from search_engine.search import search_documents
 
 documents = load_documents("data/sample_docs")
-for document in documents:
-    print(document.doc_id, len(document.text))
+results = search_documents(documents, "search")
+for result in results:
+    print(result.doc_id, result.score, result.preview)
 ```
 
 ## Framework
@@ -71,15 +78,22 @@ foundational-search-engine/
 - Reads file text as UTF-8.
 - Raises clear filesystem errors for missing paths or non-directory paths.
 
+`search_documents(documents: Iterable[Document], query: str) -> list[SearchResult]`
+
+- Tokenizes text into lowercase alphanumeric terms.
+- Scores documents by exact keyword match count.
+- Sorts results by score descending, then document ID.
+- Returns a short preview from each matched document.
+
 ## Development
 
 ```bash
 python -m pytest
 ```
 
-The project intentionally has no search index, ranking, semantic search,
-evaluation framework, or web server yet. Those pieces are roadmap items, not
-completed features.
+The project intentionally has no inverted index, production ranking, semantic
+search, evaluation framework, or web server yet. Those pieces are roadmap items,
+not completed features.
 
 ## License
 
