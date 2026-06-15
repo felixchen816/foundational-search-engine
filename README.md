@@ -14,12 +14,12 @@ Implemented:
 
 - Bare-bones Python package scaffold
 - Local `.txt` document loader
+- Inverted index for exact keyword lookup
 - Minimal keyword search over loaded documents
 - Light tests for loader, search, CLI behavior, and repository documentation
 
 Planned:
 
-- Inverted index
 - Richer command-line search
 - Ranking
 - Example corpora and evaluation
@@ -51,10 +51,13 @@ Use the loader from Python:
 
 ```python
 from search_engine.loader import load_documents
+from search_engine.index import build_inverted_index
 from search_engine.search import search_documents
+from search_engine.search import search_index, tokenize
 
 documents = load_documents("data/sample_docs")
-results = search_documents(documents, "search")
+index = build_inverted_index(documents, tokenize)
+results = search_index(index, "search")
 for result in results:
     print(result.doc_id, result.score, result.preview)
 ```
@@ -80,10 +83,18 @@ foundational-search-engine/
 
 `search_documents(documents: Iterable[Document], query: str) -> list[SearchResult]`
 
+- Builds an inverted index for the provided documents.
 - Tokenizes text into lowercase alphanumeric terms.
 - Scores documents by exact keyword match count.
 - Sorts results by score descending, then document ID.
 - Returns a short preview from each matched document.
+
+`build_inverted_index(documents: Iterable[Document], terms_by_text) -> InvertedIndex`
+
+- Stores each term with per-document occurrence counts.
+- Keeps loaded documents available for result previews.
+- Supports direct `search_index(index, query)` calls when callers want to reuse
+  a prebuilt index.
 
 ## Development
 
@@ -91,9 +102,9 @@ foundational-search-engine/
 python -m pytest
 ```
 
-The project intentionally has no inverted index, production ranking, semantic
-search, evaluation framework, or web server yet. Those pieces are roadmap items,
-not completed features.
+The project intentionally has no production ranking, semantic search, evaluation
+framework, or web server yet. Those pieces are roadmap items, not completed
+features.
 
 ## License
 

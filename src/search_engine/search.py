@@ -4,6 +4,7 @@ import re
 from dataclasses import dataclass
 from typing import Iterable, List
 
+from search_engine.index import InvertedIndex, build_inverted_index
 from search_engine.loader import Document
 
 
@@ -25,22 +26,29 @@ def tokenize(text: str) -> List[str]:
 
 
 def search_documents(documents: Iterable[Document], query: str) -> List[SearchResult]:
+    """Build an inverted index and return ranked keyword matches."""
+    index = build_inverted_index(documents, tokenize)
+    return search_index(index, query)
+
+
+def search_index(index: InvertedIndex, query: str) -> List[SearchResult]:
     """Return documents ranked by simple keyword match count."""
     query_terms = tokenize(query)
     if not query_terms:
         return []
 
-    results: List[SearchResult] = []
-    for document in documents:
-        document_terms = tokenize(document.text)
-        score = sum(document_terms.count(term) for term in query_terms)
-        if score > 0:
-            results.append(
-                SearchResult(
-                    doc_id=document.doc_id,
-                    score=score,
-                    preview=document.text.strip().replace("\n", " ")[:120],
-                )
-            )
+    scores = {}
+    for term in query_terms:
+        for doc_id, count in index.postings.get(term, {}).items():
+            scores[doc_id] = scores.get(doc_id, 0) + count
+
+    results = [
+        SearchResult(
+            doc_id=doc_id,
+            score=score,
+            preview=index.documents[doc_id].text.strip().replace("\n", " ")[:120],
+        )
+        for doc_id, score in scores.items()
+    ]
 
     return sorted(results, key=lambda result: (-result.score, result.doc_id))
