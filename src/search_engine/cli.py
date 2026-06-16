@@ -51,7 +51,7 @@ def search_main(argv: Optional[Sequence[str]] = None) -> int:
         return 0
 
     for result in results:
-        print("{}\tscore={}\t{}".format(result.doc_id, result.score, result.preview))
+        print("{}\tscore={:.3f}\t{}".format(result.doc_id, result.score, result.preview))
     return 0
 
 

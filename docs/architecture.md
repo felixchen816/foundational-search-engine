@@ -10,11 +10,12 @@ Implemented modules:
 
 - `loader.py`: reads local text files and returns stable document records.
 - `index.py`: builds term postings with per-document occurrence counts.
-- `search.py`: tokenizes query and document text, counts exact keyword matches,
-  and returns ranked result records.
+- `ranking.py`: assigns transparent scores from term frequency, coverage, and
+  rare-term weighting.
+- `search.py`: tokenizes queries, runs indexed lookup, applies ranking, and
+  returns result records.
 - `cli.py`: exposes loader and search smoke-test commands.
 
 Planned modules:
 
-- production ranking
 - web interface

@@ -11,7 +11,7 @@ def test_search_cli_prints_ranked_result(tmp_path: Path, capsys) -> None:
     exit_code = search_main(["search", "--data", str(tmp_path)])
 
     assert exit_code == 0
-    assert "doc.txt\tscore=2\tSearch engines start with text search." in capsys.readouterr().out
+    assert "doc.txt\tscore=4.000\tSearch engines start with text search." in capsys.readouterr().out
 
 
 def test_search_cli_prints_no_results(tmp_path: Path, capsys) -> None:

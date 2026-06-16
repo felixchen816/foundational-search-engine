@@ -12,6 +12,7 @@ minimal indexed keyword search over them.
 2. Local document loader
 3. Minimal keyword search prototype
 4. Inverted index
+5. Transparent ranking
 
 ## Loader Contract
 
@@ -28,13 +29,17 @@ without rereading files.
 ## Search Contract
 
 The prototype tokenizes query and document text into lowercase alphanumeric
-terms, builds or reuses the inverted index, scores each document by exact
-keyword match count, and sorts matches by score descending with document ID as a
-stable tie-breaker.
+terms, builds or reuses the inverted index, applies transparent ranking, and
+sorts matches by score descending with document ID as a stable tie-breaker.
+
+## Ranking Contract
+
+Ranking combines term frequency, matched query-term coverage, and a simple
+inverse document frequency weight. The score is transparent and deterministic,
+so later evaluation can explain why one result outranks another.
 
 ## Planned Stages
 
-- Production ranking
 - Example datasets
 - Evaluation
 - Web interface

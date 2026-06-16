@@ -11,10 +11,10 @@ This project history has been reset to the current minimal scope.
 - Added light tests for the loader and documentation.
 - Added a minimal keyword search prototype and CLI command.
 - Added an inverted index for exact keyword lookup.
+- Added transparent ranking for indexed keyword results.
 
 ### Not Yet Implemented
 
-- Production ranking
 - Structured output
 - Evaluation
 - Web UI

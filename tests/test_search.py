@@ -16,10 +16,12 @@ def test_search_documents_ranks_by_match_count_then_doc_id() -> None:
         Document(doc_id="c.txt", text="unrelated notes"),
     ]
 
-    assert search_documents(documents, "search") == [
-        SearchResult(doc_id="b.txt", score=2, preview="search search engines"),
-        SearchResult(doc_id="a.txt", score=1, preview="search basics"),
-    ]
+    results = search_documents(documents, "search")
+
+    assert [result.doc_id for result in results] == ["b.txt", "a.txt"]
+    assert results[0].score > results[1].score
+    assert results[0].preview == "search search engines"
+    assert results[1].preview == "search basics"
 
 
 def test_search_documents_handles_blank_query() -> None:
@@ -36,5 +38,5 @@ def test_search_index_reuses_prebuilt_index() -> None:
     index = build_inverted_index(documents, tokenize)
 
     assert search_index(index, "ranking") == [
-        SearchResult(doc_id="b.txt", score=1, preview="ranking only")
+        SearchResult(doc_id="b.txt", score=2.8109302162163288, preview="ranking only")
     ]

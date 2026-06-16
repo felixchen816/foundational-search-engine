@@ -16,12 +16,11 @@ Implemented:
 - Local `.txt` document loader
 - Inverted index for exact keyword lookup
 - Minimal keyword search over loaded documents
+- Transparent ranking with term frequency, query coverage, and rare-term weight
 - Light tests for loader, search, CLI behavior, and repository documentation
 
 Planned:
 
-- Richer command-line search
-- Ranking
 - Example corpora and evaluation
 - Web UI
 
@@ -85,7 +84,7 @@ foundational-search-engine/
 
 - Builds an inverted index for the provided documents.
 - Tokenizes text into lowercase alphanumeric terms.
-- Scores documents by exact keyword match count.
+- Scores documents with term frequency, query coverage, and rare-term weight.
 - Sorts results by score descending, then document ID.
 - Returns a short preview from each matched document.
 
@@ -102,9 +101,8 @@ foundational-search-engine/
 python -m pytest
 ```
 
-The project intentionally has no production ranking, semantic search, evaluation
-framework, or web server yet. Those pieces are roadmap items, not completed
-features.
+The project intentionally has no semantic search, evaluation framework, or web
+server yet. Those pieces are roadmap items, not completed features.
 
 ## License
 
