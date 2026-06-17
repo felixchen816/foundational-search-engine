@@ -24,3 +24,9 @@ Search local documents:
 ```bash
 foundational-search search --data data/sample_docs
 ```
+
+Search the example corpus:
+
+```bash
+foundational-search "ranking documents" --data data/example_corpus
+```

@@ -1,0 +1,2 @@
+A search interface helps users submit queries and inspect results.
+Command-line tools are useful before building a browser-based web interface.

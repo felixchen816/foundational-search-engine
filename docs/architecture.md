@@ -16,6 +16,13 @@ Implemented modules:
   returns result records.
 - `cli.py`: exposes loader and search smoke-test commands.
 
+Tracked data:
+
+- `data/sample_docs`: tiny loader smoke-test corpus.
+- `data/example_corpus`: small manual-testing corpus for search topics.
+- `data/example_queries.txt`: starter CLI queries for the example corpus.
+
 Planned modules:
 
+- evaluation
 - web interface

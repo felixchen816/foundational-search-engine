@@ -17,11 +17,12 @@ Implemented:
 - Inverted index for exact keyword lookup
 - Minimal keyword search over loaded documents
 - Transparent ranking with term frequency, query coverage, and rare-term weight
+- Example corpus and starter queries for manual testing
 - Light tests for loader, search, CLI behavior, and repository documentation
 
 Planned:
 
-- Example corpora and evaluation
+- Evaluation
 - Web UI
 
 ## Quick Start
@@ -46,6 +47,12 @@ Search local text files:
 foundational-search search --data data/sample_docs
 ```
 
+Try the richer example corpus:
+
+```bash
+foundational-search "ranking documents" --data data/example_corpus
+```
+
 Use the loader from Python:
 
 ```python
@@ -66,6 +73,8 @@ for result in results:
 ```text
 foundational-search-engine/
   data/sample_docs/      Tiny local text corpus for loader checks
+  data/example_corpus/   Small topic corpus for manual search testing
+  data/example_queries.txt
   docs/                  Short design notes
   src/search_engine/     Python package
   tests/                 Light pytest coverage

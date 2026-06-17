@@ -13,6 +13,7 @@ minimal indexed keyword search over them.
 3. Minimal keyword search prototype
 4. Inverted index
 5. Transparent ranking
+6. Example datasets
 
 ## Loader Contract
 
@@ -38,8 +39,14 @@ Ranking combines term frequency, matched query-term coverage, and a simple
 inverse document frequency weight. The score is transparent and deterministic,
 so later evaluation can explain why one result outranks another.
 
+## Example Data Contract
+
+The tracked example corpus is intentionally small and topic-focused. It gives
+manual CLI testing enough variety to exercise indexing, ranking, and previews
+without pretending to be a benchmark. Example queries are plain text so they can
+be copied directly into the CLI.
+
 ## Planned Stages
 
-- Example datasets
 - Evaluation
 - Web interface

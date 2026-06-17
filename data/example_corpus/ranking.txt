@@ -1,0 +1,2 @@
+Ranking decides which matching documents should appear first.
+Useful ranking combines term frequency, query coverage, and clear scoring rules.

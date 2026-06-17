@@ -1,0 +1,2 @@
+Evaluation checks whether search results are useful for known queries.
+Precision and reciprocal rank are common ways to measure result quality.

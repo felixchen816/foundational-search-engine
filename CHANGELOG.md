@@ -12,9 +12,9 @@ This project history has been reset to the current minimal scope.
 - Added a minimal keyword search prototype and CLI command.
 - Added an inverted index for exact keyword lookup.
 - Added transparent ranking for indexed keyword results.
+- Added an example corpus and starter queries for manual testing.
 
 ### Not Yet Implemented
 
-- Structured output
 - Evaluation
 - Web UI

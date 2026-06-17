@@ -1,0 +1,2 @@
+Search engines organize documents so people can find useful information quickly.
+An inverted index maps terms to documents and makes keyword lookup efficient.
