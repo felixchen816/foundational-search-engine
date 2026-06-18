@@ -1,0 +1,4 @@
+{"query": "search index", "relevant_doc_ids": ["search_engine.txt"]}
+{"query": "ranking documents", "relevant_doc_ids": ["ranking.txt", "search_engine.txt"]}
+{"query": "result quality", "relevant_doc_ids": ["evaluation.txt"]}
+{"query": "web interface", "relevant_doc_ids": ["interface.txt"]}

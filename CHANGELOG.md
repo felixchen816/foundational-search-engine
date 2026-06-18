@@ -13,8 +13,8 @@ This project history has been reset to the current minimal scope.
 - Added an inverted index for exact keyword lookup.
 - Added transparent ranking for indexed keyword results.
 - Added an example corpus and starter queries for manual testing.
+- Added judged-query evaluation with precision@k and mean reciprocal rank.
 
 ### Not Yet Implemented
 
-- Evaluation
 - Web UI

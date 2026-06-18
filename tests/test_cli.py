@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from search_engine.cli import search_main
+from search_engine.cli import evaluate_main, search_main
 
 
 def test_search_cli_prints_ranked_result(tmp_path: Path, capsys) -> None:
@@ -21,3 +21,13 @@ def test_search_cli_prints_no_results(tmp_path: Path, capsys) -> None:
 
     assert exit_code == 0
     assert capsys.readouterr().out == "No results\n"
+
+
+def test_evaluate_cli_prints_summary_metrics(capsys) -> None:
+    exit_code = evaluate_main([])
+
+    output = capsys.readouterr().out
+    assert exit_code == 0
+    assert "search index\tprecision@3=" in output
+    assert "mean_precision@3=" in output
+    assert "mean_reciprocal_rank=1.000" in output

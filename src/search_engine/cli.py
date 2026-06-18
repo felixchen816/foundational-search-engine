@@ -3,6 +3,7 @@
 import argparse
 from typing import Optional, Sequence
 
+from search_engine.evaluation import evaluate_corpus, mean_precision_at_k, mean_reciprocal_rank
 from search_engine.loader import load_documents
 from search_engine.search import search_documents
 
@@ -30,6 +31,23 @@ def build_search_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def build_evaluate_parser() -> argparse.ArgumentParser:
+    """Create the evaluation parser."""
+    parser = argparse.ArgumentParser(description="Evaluate local search results.")
+    parser.add_argument(
+        "--data",
+        default="data/example_corpus",
+        help="Directory containing .txt documents.",
+    )
+    parser.add_argument(
+        "--judgments",
+        default="data/relevance/example_queries.jsonl",
+        help="JSONL file with query relevance judgments.",
+    )
+    parser.add_argument("--k", type=int, default=3, help="Cutoff for precision@k.")
+    return parser
+
+
 def load_main(argv: Optional[Sequence[str]] = None) -> int:
     """Load documents and print their stable IDs."""
     args = build_load_parser().parse_args(argv)
@@ -52,6 +70,25 @@ def search_main(argv: Optional[Sequence[str]] = None) -> int:
 
     for result in results:
         print("{}\tscore={:.3f}\t{}".format(result.doc_id, result.score, result.preview))
+    return 0
+
+
+def evaluate_main(argv: Optional[Sequence[str]] = None) -> int:
+    """Evaluate judged queries and print summary metrics."""
+    args = build_evaluate_parser().parse_args(argv)
+    results = evaluate_corpus(args.data, args.judgments, k=args.k)
+    for result in results:
+        print(
+            "{}\tprecision@{}={:.3f}\tmrr={:.3f}\tfound={}".format(
+                result.query,
+                args.k,
+                result.precision_at_k,
+                result.reciprocal_rank,
+                result.relevant_found,
+            )
+        )
+    print("mean_precision@{}={:.3f}".format(args.k, mean_precision_at_k(results)))
+    print("mean_reciprocal_rank={:.3f}".format(mean_reciprocal_rank(results)))
     return 0
 
 

@@ -30,3 +30,9 @@ Search the example corpus:
 ```bash
 foundational-search "ranking documents" --data data/example_corpus
 ```
+
+Evaluate the example corpus:
+
+```bash
+foundational-evaluate
+```

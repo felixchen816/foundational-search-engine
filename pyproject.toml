@@ -36,6 +36,7 @@ Documentation = "https://github.com/felixchen816/foundational-search-engine/blob
 dev = ["pytest>=8.0"]
 
 [project.scripts]
+foundational-evaluate = "search_engine.cli:evaluate_main"
 foundational-load = "search_engine.cli:load_main"
 foundational-search = "search_engine.cli:search_main"
 

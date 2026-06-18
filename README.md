@@ -18,11 +18,11 @@ Implemented:
 - Minimal keyword search over loaded documents
 - Transparent ranking with term frequency, query coverage, and rare-term weight
 - Example corpus and starter queries for manual testing
+- Judged-query evaluation with precision@k and mean reciprocal rank
 - Light tests for loader, search, CLI behavior, and repository documentation
 
 Planned:
 
-- Evaluation
 - Web UI
 
 ## Quick Start
@@ -53,6 +53,12 @@ Try the richer example corpus:
 foundational-search "ranking documents" --data data/example_corpus
 ```
 
+Evaluate the example corpus:
+
+```bash
+foundational-evaluate
+```
+
 Use the loader from Python:
 
 ```python
@@ -75,6 +81,7 @@ foundational-search-engine/
   data/sample_docs/      Tiny local text corpus for loader checks
   data/example_corpus/   Small topic corpus for manual search testing
   data/example_queries.txt
+  data/relevance/        Judged queries for evaluation checks
   docs/                  Short design notes
   src/search_engine/     Python package
   tests/                 Light pytest coverage
@@ -104,14 +111,20 @@ foundational-search-engine/
 - Supports direct `search_index(index, query)` calls when callers want to reuse
   a prebuilt index.
 
+`evaluate_corpus(data_directory: str, judgments_path: str, k: int = 3) -> list[EvaluationResult]`
+
+- Runs judged queries against a local corpus.
+- Reports precision@k, reciprocal rank, and relevant results found.
+- Supports the `foundational-evaluate` CLI command.
+
 ## Development
 
 ```bash
 python -m pytest
 ```
 
-The project intentionally has no semantic search, evaluation framework, or web
-server yet. Those pieces are roadmap items, not completed features.
+The project intentionally has no semantic search or web server yet. Those pieces
+are roadmap items, not completed features.
 
 ## License
 

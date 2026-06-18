@@ -14,6 +14,7 @@ minimal indexed keyword search over them.
 4. Inverted index
 5. Transparent ranking
 6. Example datasets
+7. Evaluation
 
 ## Loader Contract
 
@@ -46,7 +47,13 @@ manual CLI testing enough variety to exercise indexing, ranking, and previews
 without pretending to be a benchmark. Example queries are plain text so they can
 be copied directly into the CLI.
 
+## Evaluation Contract
+
+Evaluation uses small JSONL relevance judgments. Each line names a query and the
+document IDs considered relevant. The current metrics are precision@k and mean
+reciprocal rank, which are enough to catch obvious ranking regressions before a
+larger benchmark exists.
+
 ## Planned Stages
 
-- Evaluation
 - Web interface

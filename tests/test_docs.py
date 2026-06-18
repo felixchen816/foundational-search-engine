@@ -17,6 +17,7 @@ def test_readme_describes_only_current_scope() -> None:
     assert "Minimal keyword search" in readme
     assert "Transparent ranking" in readme
     assert "Example corpus" in readme
+    assert "Judged-query evaluation" in readme
     assert "not completed features" in readme.replace("\n", " ")
     assert "Status" in readme
 
@@ -36,8 +37,8 @@ def test_architecture_lists_current_runtime_path() -> None:
     assert "index.py" in architecture
     assert "ranking.py" in architecture
     assert "search.py" in architecture
+    assert "evaluation.py" in architecture
     assert "data/example_corpus" in architecture
-    assert "Planned modules" in architecture
     assert "evaluation" in architecture
     assert "web interface" in architecture
 
