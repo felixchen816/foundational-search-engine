@@ -6,6 +6,7 @@ from typing import Optional, Sequence
 from search_engine.evaluation import evaluate_corpus, mean_precision_at_k, mean_reciprocal_rank
 from search_engine.loader import load_documents
 from search_engine.search import search_documents
+from search_engine.web import DEFAULT_DATA_DIRECTORY, run_server
 
 
 def build_load_parser() -> argparse.ArgumentParser:
@@ -45,6 +46,19 @@ def build_evaluate_parser() -> argparse.ArgumentParser:
         help="JSONL file with query relevance judgments.",
     )
     parser.add_argument("--k", type=int, default=3, help="Cutoff for precision@k.")
+    return parser
+
+
+def build_web_parser() -> argparse.ArgumentParser:
+    """Create the web server parser."""
+    parser = argparse.ArgumentParser(description="Run the local search web UI.")
+    parser.add_argument("--host", default="127.0.0.1", help="Host interface to bind.")
+    parser.add_argument("--port", type=int, default=8000, help="Port to bind.")
+    parser.add_argument(
+        "--data",
+        default=DEFAULT_DATA_DIRECTORY,
+        help="Directory containing .txt documents.",
+    )
     return parser
 
 
@@ -89,6 +103,13 @@ def evaluate_main(argv: Optional[Sequence[str]] = None) -> int:
         )
     print("mean_precision@{}={:.3f}".format(args.k, mean_precision_at_k(results)))
     print("mean_reciprocal_rank={:.3f}".format(mean_reciprocal_rank(results)))
+    return 0
+
+
+def web_main(argv: Optional[Sequence[str]] = None) -> int:
+    """Run the local web UI."""
+    args = build_web_parser().parse_args(argv)
+    run_server(args.host, args.port, args.data)
     return 0
 
 

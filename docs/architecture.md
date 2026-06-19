@@ -17,6 +17,8 @@ Implemented modules:
 - `evaluation.py`: runs judged queries and computes precision@k and reciprocal
   rank.
 - `cli.py`: exposes loader and search smoke-test commands.
+- `web.py`: serves a local HTML form and renders search results through the
+  same search pipeline.
 
 Tracked data:
 
@@ -27,4 +29,4 @@ Tracked data:
 
 Planned modules:
 
-- web interface
+- semantic search

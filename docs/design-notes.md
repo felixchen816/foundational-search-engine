@@ -15,6 +15,7 @@ minimal indexed keyword search over them.
 5. Transparent ranking
 6. Example datasets
 7. Evaluation
+8. Web interface
 
 ## Loader Contract
 
@@ -54,6 +55,12 @@ document IDs considered relevant. The current metrics are precision@k and mean
 reciprocal rank, which are enough to catch obvious ranking regressions before a
 larger benchmark exists.
 
+## Web Interface Contract
+
+The web UI uses only the Python standard library. It serves a search form,
+passes queries through the same local search pipeline as the CLI, escapes output
+before rendering, and keeps data-directory selection visible for manual testing.
+
 ## Planned Stages
 
-- Web interface
+- Semantic search

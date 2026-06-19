@@ -19,11 +19,12 @@ Implemented:
 - Transparent ranking with term frequency, query coverage, and rare-term weight
 - Example corpus and starter queries for manual testing
 - Judged-query evaluation with precision@k and mean reciprocal rank
+- Standard-library web UI for local search testing
 - Light tests for loader, search, CLI behavior, and repository documentation
 
 Planned:
 
-- Web UI
+- Semantic search
 
 ## Quick Start
 
@@ -58,6 +59,14 @@ Evaluate the example corpus:
 ```bash
 foundational-evaluate
 ```
+
+Run the local web UI:
+
+```bash
+foundational-web --data data/example_corpus --port 8000
+```
+
+Then open `http://127.0.0.1:8000`.
 
 Use the loader from Python:
 
@@ -117,14 +126,20 @@ foundational-search-engine/
 - Reports precision@k, reciprocal rank, and relevant results found.
 - Supports the `foundational-evaluate` CLI command.
 
+`foundational-web --data data/example_corpus --port 8000`
+
+- Serves a local search form.
+- Runs the same indexed search pipeline as the CLI.
+- Escapes user input and result previews before rendering.
+
 ## Development
 
 ```bash
 python -m pytest
 ```
 
-The project intentionally has no semantic search or web server yet. Those pieces
-are roadmap items, not completed features.
+The project intentionally has no semantic search yet. That remains a roadmap
+item, not a completed feature.
 
 ## License
 

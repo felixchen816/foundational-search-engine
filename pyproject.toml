@@ -39,6 +39,7 @@ dev = ["pytest>=8.0"]
 foundational-evaluate = "search_engine.cli:evaluate_main"
 foundational-load = "search_engine.cli:load_main"
 foundational-search = "search_engine.cli:search_main"
+foundational-web = "search_engine.cli:web_main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

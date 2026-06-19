@@ -18,7 +18,8 @@ def test_readme_describes_only_current_scope() -> None:
     assert "Transparent ranking" in readme
     assert "Example corpus" in readme
     assert "Judged-query evaluation" in readme
-    assert "not completed features" in readme.replace("\n", " ")
+    assert "Standard-library web UI" in readme
+    assert "not a completed feature" in readme.replace("\n", " ")
     assert "Status" in readme
 
 
@@ -38,9 +39,10 @@ def test_architecture_lists_current_runtime_path() -> None:
     assert "ranking.py" in architecture
     assert "search.py" in architecture
     assert "evaluation.py" in architecture
+    assert "web.py" in architecture
     assert "data/example_corpus" in architecture
     assert "evaluation" in architecture
-    assert "web interface" in architecture
+    assert "semantic search" in architecture
 
 
 def test_contributing_keeps_scope_honest() -> None:
