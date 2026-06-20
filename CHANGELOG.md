@@ -15,7 +15,8 @@ This project history has been reset to the current minimal scope.
 - Added an example corpus and starter queries for manual testing.
 - Added judged-query evaluation with precision@k and mean reciprocal rank.
 - Added a standard-library web UI for local search testing.
+- Added deterministic semantic query expansion.
 
 ### Not Yet Implemented
 
-- Semantic search
+- Larger corpus support

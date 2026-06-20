@@ -42,3 +42,9 @@ Run the local web UI:
 ```bash
 foundational-web --data data/example_corpus --port 8000
 ```
+
+Try semantic expansion:
+
+```bash
+foundational-search find --mode semantic --data data/example_corpus
+```

@@ -14,6 +14,7 @@ Implemented modules:
   rare-term weighting.
 - `search.py`: tokenizes queries, runs indexed lookup, applies ranking, and
   returns result records.
+- `semantic.py`: expands queries with known semantic neighbors.
 - `evaluation.py`: runs judged queries and computes precision@k and reciprocal
   rank.
 - `cli.py`: exposes loader and search smoke-test commands.
@@ -29,4 +30,4 @@ Tracked data:
 
 Planned modules:
 
-- semantic search
+- larger corpus support

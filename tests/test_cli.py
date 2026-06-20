@@ -23,6 +23,14 @@ def test_search_cli_prints_no_results(tmp_path: Path, capsys) -> None:
     assert capsys.readouterr().out == "No results\n"
 
 
+def test_search_cli_supports_semantic_mode(capsys) -> None:
+    exit_code = search_main(["find", "--mode", "semantic", "--data", "data/example_corpus"])
+
+    output = capsys.readouterr().out
+    assert exit_code == 0
+    assert "search_engine.txt" in output
+
+
 def test_evaluate_cli_prints_summary_metrics(capsys) -> None:
     exit_code = evaluate_main([])
 

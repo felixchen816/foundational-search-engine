@@ -6,6 +6,7 @@ from typing import Optional, Sequence
 from search_engine.evaluation import evaluate_corpus, mean_precision_at_k, mean_reciprocal_rank
 from search_engine.loader import load_documents
 from search_engine.search import search_documents
+from search_engine.semantic import expand_query_text
 from search_engine.web import DEFAULT_DATA_DIRECTORY, run_server
 
 
@@ -24,6 +25,12 @@ def build_search_parser() -> argparse.ArgumentParser:
     """Create the search parser."""
     parser = argparse.ArgumentParser(description="Search local .txt documents.")
     parser.add_argument("query", help="Keyword query to search for.")
+    parser.add_argument(
+        "--mode",
+        choices=["keyword", "semantic"],
+        default="keyword",
+        help="Search mode.",
+    )
     parser.add_argument(
         "--data",
         default="data/sample_docs",
@@ -76,7 +83,8 @@ def search_main(argv: Optional[Sequence[str]] = None) -> int:
     """Search documents and print ranked matches."""
     args = build_search_parser().parse_args(argv)
     documents = load_documents(args.data)
-    results = search_documents(documents, args.query)
+    query = expand_query_text(args.query) if args.mode == "semantic" else args.query
+    results = search_documents(documents, query)
 
     if not results:
         print("No results")

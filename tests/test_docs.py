@@ -19,6 +19,7 @@ def test_readme_describes_only_current_scope() -> None:
     assert "Example corpus" in readme
     assert "Judged-query evaluation" in readme
     assert "Standard-library web UI" in readme
+    assert "Lightweight semantic query expansion" in readme
     assert "not a completed feature" in readme.replace("\n", " ")
     assert "Status" in readme
 
@@ -38,11 +39,12 @@ def test_architecture_lists_current_runtime_path() -> None:
     assert "index.py" in architecture
     assert "ranking.py" in architecture
     assert "search.py" in architecture
+    assert "semantic.py" in architecture
     assert "evaluation.py" in architecture
     assert "web.py" in architecture
     assert "data/example_corpus" in architecture
     assert "evaluation" in architecture
-    assert "semantic search" in architecture
+    assert "larger corpus support" in architecture
 
 
 def test_contributing_keeps_scope_honest() -> None:

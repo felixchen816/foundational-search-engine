@@ -7,6 +7,7 @@ from urllib.parse import parse_qs, urlparse
 
 from search_engine.search import SearchResult, search_documents
 from search_engine.loader import load_documents
+from search_engine.semantic import expand_query_text
 
 
 DEFAULT_DATA_DIRECTORY = "data/example_corpus"
@@ -17,10 +18,13 @@ def render_search_page(
     results: Optional[Sequence[SearchResult]] = None,
     error: str = "",
     data_directory: str = DEFAULT_DATA_DIRECTORY,
+    mode: str = "keyword",
 ) -> str:
     """Render the search form and optional results."""
     safe_query = escape(query)
     safe_data = escape(data_directory)
+    keyword_checked = "checked" if mode == "keyword" else ""
+    semantic_checked = "checked" if mode == "semantic" else ""
     body = [
         "<!doctype html>",
         '<html lang="en">',
@@ -43,6 +47,8 @@ def render_search_page(
         '<form action="/search" method="get">',
         '<input name="q" value="{}" placeholder="Search local documents" autofocus>'.format(safe_query),
         '<input name="data" value="{}" aria-label="Data directory">'.format(safe_data),
+        '<label><input type="radio" name="mode" value="keyword" {}> Keyword</label>'.format(keyword_checked),
+        '<label><input type="radio" name="mode" value="semantic" {}> Semantic</label>'.format(semantic_checked),
         "<button type=\"submit\">Search</button>",
         "</form>",
     ]
@@ -69,18 +75,20 @@ def render_search_page(
     return "\n".join(body)
 
 
-def search_request(query: str, data_directory: str = DEFAULT_DATA_DIRECTORY) -> Tuple[str, int]:
+def search_request(query: str, data_directory: str = DEFAULT_DATA_DIRECTORY, mode: str = "keyword") -> Tuple[str, int]:
     """Return rendered HTML and status for one search request."""
+    normalized_mode = mode if mode in {"keyword", "semantic"} else "keyword"
     if not query.strip():
-        return render_search_page(query=query, data_directory=data_directory), 200
+        return render_search_page(query=query, data_directory=data_directory, mode=normalized_mode), 200
 
     try:
         documents = load_documents(data_directory)
-        results = search_documents(documents, query)
+        search_query = expand_query_text(query) if normalized_mode == "semantic" else query
+        results = search_documents(documents, search_query)
     except (FileNotFoundError, NotADirectoryError) as exc:
-        return render_search_page(query=query, error=str(exc), data_directory=data_directory), 400
+        return render_search_page(query=query, error=str(exc), data_directory=data_directory, mode=normalized_mode), 400
 
-    return render_search_page(query=query, results=results, data_directory=data_directory), 200
+    return render_search_page(query=query, results=results, data_directory=data_directory, mode=normalized_mode), 200
 
 
 class SearchRequestHandler(BaseHTTPRequestHandler):
@@ -98,7 +106,8 @@ class SearchRequestHandler(BaseHTTPRequestHandler):
             query_params = parse_qs(parsed.query)
             query = query_params.get("q", [""])[0]
             data_directory = query_params.get("data", [self.data_directory])[0]
-            html, status = search_request(query, data_directory=data_directory)
+            mode = query_params.get("mode", ["keyword"])[0]
+            html, status = search_request(query, data_directory=data_directory, mode=mode)
             self._send_html(html, status)
             return
 

@@ -16,6 +16,7 @@ minimal indexed keyword search over them.
 6. Example datasets
 7. Evaluation
 8. Web interface
+9. Semantic search
 
 ## Loader Contract
 
@@ -61,6 +62,12 @@ The web UI uses only the Python standard library. It serves a search form,
 passes queries through the same local search pipeline as the CLI, escapes output
 before rendering, and keeps data-directory selection visible for manual testing.
 
+## Semantic Search Contract
+
+Semantic mode is deterministic query expansion, not embeddings. It adds known
+neighbor terms before searching through the existing inverted-index pipeline.
+This keeps behavior inspectable while demonstrating the semantic-search concept.
+
 ## Planned Stages
 
-- Semantic search
+- Larger corpus support

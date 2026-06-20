@@ -20,6 +20,14 @@ def test_search_request_returns_results_for_example_corpus() -> None:
     assert "Ranking decides" in html
 
 
+def test_search_request_supports_semantic_mode() -> None:
+    html, status = search_request("find", data_directory="data/example_corpus", mode="semantic")
+
+    assert status == 200
+    assert "search_engine.txt" in html
+    assert 'value="semantic" checked' in html
+
+
 def test_search_request_reports_no_results() -> None:
     html, status = search_request("zzzzzz", data_directory="data/example_corpus")
 

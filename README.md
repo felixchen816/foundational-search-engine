@@ -20,11 +20,12 @@ Implemented:
 - Example corpus and starter queries for manual testing
 - Judged-query evaluation with precision@k and mean reciprocal rank
 - Standard-library web UI for local search testing
+- Lightweight semantic query expansion
 - Light tests for loader, search, CLI behavior, and repository documentation
 
 Planned:
 
-- Semantic search
+- Larger corpus support
 
 ## Quick Start
 
@@ -52,6 +53,12 @@ Try the richer example corpus:
 
 ```bash
 foundational-search "ranking documents" --data data/example_corpus
+```
+
+Try semantic expansion:
+
+```bash
+foundational-search find --mode semantic --data data/example_corpus
 ```
 
 Evaluate the example corpus:
@@ -130,7 +137,13 @@ foundational-search-engine/
 
 - Serves a local search form.
 - Runs the same indexed search pipeline as the CLI.
+- Supports keyword and semantic query modes.
 - Escapes user input and result previews before rendering.
+
+`expand_query_text(query: str) -> str`
+
+- Adds known semantic neighbors for small vocabulary demos.
+- Keeps the implementation deterministic and dependency-free.
 
 ## Development
 
@@ -138,8 +151,8 @@ foundational-search-engine/
 python -m pytest
 ```
 
-The project intentionally has no semantic search yet. That remains a roadmap
-item, not a completed feature.
+The project intentionally has no large-corpus optimizations yet. That remains a
+roadmap item, not a completed feature.
 
 ## License
 
